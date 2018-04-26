@@ -9,7 +9,7 @@
  */
 
 #include "MatrixMath.h"
-#include <Math.h>
+#include <math.h>
 
 #define NR_END 1
 
@@ -127,10 +127,10 @@ int MatrixMath::RPYtoMatrix(float* A, int m, int n, float R, float P, float Y)
 			}
 		}
 		//This is ugly but it will do for now
-		A[0][0]=cos(R)*cos(P); A[0][1]=cos(R)*sin(P)*sin(Y)-sin(R)*cos(Y); A[0][2]=cos(R)*sin(P)*cos(Y)+sin(R)*sin(Y); A[0][3]=0;
-		A[1][0]=sin(R)*cos(P);  A[1][1]=sin(R)*sin(P)*sin(Y)-cos(R)*cos(Y); A[1][2]=sin(R)*sin(P)*cos(Y)-cos(R)*sin(Y);  A[1][3]=0;
-		A[2][0]=-sin(P); 		A[2][1]=cos(P)*sin(Y);					   A[2][2]=cos(P)*cos(Y);				       A[2][3]=0;
-		A[3][0]=0;			A[3][1]=0;	  						   A[3][2]=0;						               A[3][3]=1;
+		A[n*0+0]=cos(R)*cos(P); A[n*0+1]=cos(R)*sin(P)*sin(Y)-sin(R)*cos(Y); A[n*0+2]=cos(R)*sin(P)*cos(Y)+sin(R)*sin(Y); A[n*0+3]=(float)0;
+		A[n*1+0]=sin(R)*cos(P);  A[n*1+1]=sin(R)*sin(P)*sin(Y)-cos(R)*cos(Y); A[n*1+2]=sin(R)*sin(P)*cos(Y)-cos(R)*sin(Y);  A[n*1+3]=(float)0;
+		A[n*2+0]=-sin(P); 		A[n*2+1]=cos(P)*sin(Y);					   A[n*2+2]=cos(P)*cos(Y);				       	    A[n*2+3]=(float)0;
+		A[n*3+0]=(float)0;		A[n*3+1]=(float)0;	  					           A[n*3+2]=(float)0;				                    A[n*3+3]=(float)1;
 		return 1;
 	}
 	else
