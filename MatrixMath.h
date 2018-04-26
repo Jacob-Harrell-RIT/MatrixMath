@@ -29,6 +29,7 @@ public:
 	void Subtract(float* A, float* B, int m, int n, float* C);
 	void Transpose(float* A, int m, int n, float* C);
 	void Scale(float* A, int m, int n, float k);
+	void RPYtoMatrix(float* A,int m, int n, float R,float P, float Y); 
 	int Invert(float* A, int n);
 };
 
