@@ -4,9 +4,12 @@
  *  Created by Charlie Matlack on 12/18/10.
  *  Modified from code by RobH45345 on Arduino Forums, algorithm from
  *  NUMERICAL RECIPES: The Art of Scientific Computing.
+ *  conversion from RPY angles to transformation frame added by Jacob Harrell on 4/26/2018
+ *  from Introduction to Robotics Analysis, Control, Applications by Niku et. al
  */
 
 #include "MatrixMath.h"
+#include <Math.h>
 
 #define NR_END 1
 
@@ -112,7 +115,29 @@ void MatrixMath::Scale(float* A, int m, int n, float k)
 			A[n * i + j] = A[n * i + j] * k;
 }
 
-
+int MatrixMath::RPYtoMatrix(float* A, int m, int n, float R, float P, float Y)
+{//converts from RPY angles to a 4x4 matrix, m,n must =4
+	if(m==4 && n==4)
+	{
+		for (int i = 0; i < m; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				A[n * i + j]=0;//preset all to 0;
+			}
+		}
+		//This is ugly but it will do for now
+		A[0][0]=cos(R)*cos(P); A[0][1]=cos(R)*sin(P)*sin(Y)-sin(R)*cos(Y); A[0][2]=cos(R)*sin(P)*cos(Y)+sin(R)*sin(Y); A[0][3]=0;
+		A[1][0]=sin(R)*cos(P);  A[1][1]=sin(R)*sin(P)*sin(Y)-cos(R)*cos(Y); A[1][2]=sin(R)*sin(P)*cos(Y)-cos(R)*sin(Y);  A[1][3]=0;
+		A[2][0]=-sin(P); 		A[2][1]=cos(P)*sin(Y);					   A[2][2]=cos(P)*cos(Y);				       A[2][3]=0;
+		A[3][0]=0;			A[3][1]=0;	  						   A[3][2]=0;						               A[3][3]=1;
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
 //Matrix Inversion Routine
 // * This function inverts a matrix based on the Gauss Jordan method.
 // * Specifically, it uses partial pivoting to improve numeric stability.
